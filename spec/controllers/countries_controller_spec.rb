@@ -7,7 +7,7 @@ RSpec.describe CountriesController do
     let(:code)     { 'AU' }
     let!(:country) { FactoryGirl.create :country, code: code }
 
-    before { FactoryGirl.create :country, code: 'US' }
+    before { FactoryGirl.create :country, code: 'AU' }
 
     it { is_expected.to be_successful }
 
@@ -17,6 +17,7 @@ RSpec.describe CountriesController do
         JSON.parse(response.body)
       end
 
+      specify { expect(response_body['code']).to eq code }
       specify { expect(response_body['regular']).to eq country.regular_shipping_rate }
       specify { expect(response_body['express']).to eq country.express_shipping_rate }
     end
